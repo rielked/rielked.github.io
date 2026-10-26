@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Riel Akec · Engineering Projects</title>
+<meta name="description" content="Electrical & Electronics Engineering graduate (UTP). Embedded systems, wireless, instrumentation and power projects with measured results.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: datasheet-style single column. Intro + project index, then one section per project:
+   part-number header, summary, spec strip, figure grid, what-I-did. */
+:root{
+  --bg:#f3f5f6; --surface:#ffffff; --ink:#172026; --muted:#56636d; --line:#d5dce1;
+  --accent:#0f5f73; --accent-ink:#ffffff; --signal:#b8661a; --tint:#e7eef1; --code:#eef2f4;
+  --display:"IBM Plex Sans Condensed","Arial Narrow",Arial,sans-serif;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e1418; --surface:#151d23; --ink:#e3e9ec; --muted:#9aa8b2; --line:#26323a;
+  --accent:#5fbcd1; --accent-ink:#0b1418; --signal:#e3a04f; --tint:#18262e; --code:#111a20; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1418; --surface:#151d23; --ink:#e3e9ec; --muted:#9aa8b2; --line:#26323a;
+  --accent:#5fbcd1; --accent-ink:#0b1418; --signal:#e3a04f; --tint:#18262e; --code:#111a20; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans)}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+/* intro */
+.intro{padding-block:56px 32px;border-bottom:1px solid var(--line)}
+.eyebrow{font:500 .78rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+h1{font:600 clamp(2.1rem,5vw,3.4rem)/1.05 var(--display);margin:0;letter-spacing:-.01em;text-wrap:balance}
+.lede{max-width:62ch;margin:16px 0 0;font-size:1.08rem;color:var(--muted)}
+.lede b{color:var(--ink);font-weight:600}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:500 .92rem/1 var(--sans);text-decoration:none;padding:11px 16px;border-radius:8px;border:1px solid var(--line);color:var(--ink);background:var(--surface)}
+.btn:hover{border-color:var(--accent)}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn svg{width:16px;height:16px;flex:none}
+
+/* index */
+.index{padding-block:28px 8px}
+.index h2{font:500 .78rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.index ol{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.index a{display:grid;grid-template-columns:3rem 1fr auto;gap:12px;align-items:baseline;padding:12px 4px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.index a:hover .it{color:var(--accent)}
+.ic{font:500 .85rem var(--mono);color:var(--muted)}
+.it{font-weight:500;min-width:0}
+.ik{font:500 .9rem var(--mono);color:var(--signal);white-space:nowrap;font-variant-numeric:tabular-nums}
+.ik em{font:400 .82rem var(--sans);color:var(--muted);font-style:normal;margin-left:4px}
+@media (max-width:700px){.index a{grid-template-columns:2.4rem 1fr}.ik{grid-column:2;white-space:normal}}
+
+/* project */
+.proj{padding-block:56px 40px;border-bottom:1px solid var(--line);scroll-margin-top:12px}
+.ph{display:grid;gap:6px;margin-bottom:18px}
+.pc{font:500 .8rem/1 var(--mono);letter-spacing:.06em;color:var(--accent)}
+.proj h2{font:600 clamp(1.5rem,3.2vw,2.1rem)/1.15 var(--display);margin:0;text-wrap:balance}
+.meta{margin:0;color:var(--muted);font-size:.95rem}
+.tags{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.tags li{font:400 .78rem/1 var(--mono);padding:6px 8px;border:1px solid var(--line);border-radius:4px;color:var(--muted);background:var(--surface)}
+.sum{max-width:72ch;margin:0 0 22px}
+.specs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden;margin-bottom:22px}
+.specs div{padding:14px 16px;border-left:1px solid var(--line);display:grid;gap:4px;min-width:0}
+.specs div:first-child{border-left:0}
+.v{font:500 clamp(1.15rem,2.4vw,1.5rem)/1.1 var(--mono);color:var(--ink);font-variant-numeric:tabular-nums}
+.l{font-size:.84rem;color:var(--muted);line-height:1.35}
+@media (max-width:700px){.specs{grid-template-columns:repeat(2,minmax(0,1fr))}.specs div:nth-child(3){border-left:0}.specs div:nth-child(n+3){border-top:1px solid var(--line)}}
+
+.figs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:26px}
+.figs.n8,.figs.n4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:860px){.figs,.figs.n8,.figs.n4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.figs,.figs.n8,.figs.n4{grid-template-columns:1fr}}
+.fig{margin:0;display:grid;gap:8px;align-content:start;min-width:0}
+.zoom{all:unset;cursor:zoom-in;display:block;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface);aspect-ratio:4/3}
+.zoom img{width:100%;height:100%;display:block;object-fit:cover;transition:transform .25s}
+.zoom:hover img{transform:scale(1.02)}
+@media (prefers-reduced-motion:reduce){.zoom img{transition:none}.zoom:hover img{transform:none}}
+.fig.diagram .zoom,.fig.chart .zoom{background:#fff}
+.fig.diagram img,.fig.chart img{object-fit:contain;padding:8px}
+.fig.screen .zoom{background:#d1edf2}
+.fig.screen img{object-fit:contain}
+figcaption{font-size:.86rem;color:var(--muted);line-height:1.45}
+figcaption b{color:var(--ink);font-weight:600}
+
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px}
+@media (max-width:800px){.cols{grid-template-columns:1fr}}
+.cols:has(> div:only-child){grid-template-columns:minmax(0,1fr)}
+h4{font:600 .8rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.did{margin:0;padding-left:20px;display:grid;gap:6px;max-width:68ch}
+.extra{min-width:0}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.9rem;font-variant-numeric:tabular-nums}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+th{font:500 .8rem var(--mono);color:var(--muted);background:var(--tint)}
+td.pick{color:var(--accent);font-weight:600}
+.note{font-size:.86rem;color:var(--muted);margin:8px 0 0}
+.calc{margin:0;display:grid;gap:10px}
+.calc div{display:grid;gap:2px}
+.calc dt{font-weight:600;font-size:.92rem}
+.calc dd{margin:0;font-size:.92rem;color:var(--muted)}
+code{font:400 .86rem var(--mono);color:var(--ink)}
+pre{margin:0;background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;font-size:.8rem;line-height:1.5}
+pre code{font-size:.8rem}
+pre .c{color:var(--muted)}
+
+footer.site{padding-block:36px 56px;color:var(--muted);font-size:.9rem}
+footer.site p{margin:0 0 6px;max-width:70ch}
+
+/* lightbox */
+dialog{border:0;padding:0;background:transparent;max-width:min(96vw,1200px);max-height:92vh}
+dialog::backdrop{background:rgba(8,12,15,.82)}
+dialog figure{margin:0;display:grid;gap:10px;justify-items:center}
+dialog img{max-width:100%;max-height:80vh;border-radius:8px;background:#fff}
+dialog figcaption{color:#e3e9ec;font-size:.92rem;max-width:80ch;text-align:center}
+dialog button{position:fixed;top:max(14px,env(safe-area-inset-top,0px));right:max(14px,env(safe-area-inset-right,0px));font:500 .9rem var(--sans);background:#fff;color:#172026;border:0;border-radius:999px;padding:9px 14px;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="intro">
+  <p class="eyebrow">Electrical &amp; Electronics Engineering · Universiti Teknologi PETRONAS</p>
+  <h1>Riel Kediende Mapuor Akec</h1>
+  <p class="lede">Graduate engineer working across <b>embedded systems, wireless links, instrumentation and power electronics</b>. Below are five projects with the photos, schematics and measured results behind each line of my resume, plus an R&amp;D internship at Bosch Power Tools.</p>
+  <div class="links">
+    <a class="btn pri" href="Riel_Project_Portfolio.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M5 21h14"/></svg>Download project sheet (PDF)</a>
+    <a class="btn" href="mailto:riel.akec@alum.utp.edu.my">riel.akec@alum.utp.edu.my</a>
+    <a class="btn" href="https://www.linkedin.com/in/rielkediende" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn" href="https://github.com/rielked" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</section>
+<nav class="index" aria-label="Projects">
+  <h2>Projects</h2>
+  <ol><li><a href="#lora"><span class="ic">01</span><span class="it">LoRa Leak Detection System for Remote Pipelines</span><span class="ik">500 m <em>outdoor link tested</em></span></a></li><li><a href="#robot"><span class="ic">02</span><span class="it">IoT Service Module: Autonomous Shape-Guided Robot</span><span class="ik">2 of 4 <em>subsystems owned</em></span></a></li><li><a href="#dac"><span class="ic">03</span><span class="it">Direct Air Capture Prototype: CO₂ Monitoring Electronics</span><span class="ik">45% <em>CO₂ reduction, closed test (840 → 462 ppm)</em></span></a></li><li><a href="#psu"><span class="ic">04</span><span class="it">12 V Linear DC Bench Power Supply</span><span class="ik">12.68 V <em>fixed output measured (+5.7%)</em></span></a></li><li><a href="#wordle"><span class="ic">05</span><span class="it">Wordle Game in C with an X11 Interface</span><span class="ik">~680 <em>lines of C</em></span></a></li></ol>
+</nav>
+<section class="proj" id="lora" aria-labelledby="h-lora">
+<header class="ph"><span class="pc">PRJ-01</span><h2 id="h-lora">LoRa Leak Detection System for Remote Pipelines</h2><p class="meta">Final Year Project · BEng (Hons) EEE · 2025 · Individual</p><ul class="tags"><li>ESP32</li><li>SX1276 LoRa</li><li>923 MHz</li><li>C++</li><li>Sensor fusion</li><li>Field testing</li></ul></header>
+<p class="sum">A two-node wireless system that detects gas leaks and mechanical disturbances on remote pipelines without gateways or internet. The transmitter samples a methane sensor (MQ-4), a pressure and temperature sensor (DPS310, I²C) and a piezo vibration sensor, packs the readings into a compact payload and sends it at 923 MHz. The receiver decodes each packet, shows live values on an OLED and sounds an LED and buzzer alarm when thresholds are crossed.</p>
+<div class="specs"><div><span class="v">500 m</span><span class="l">outdoor link tested</span></div><div><span class="v">100%</span><span class="l">detection accuracy up to 300 m</span></div><div><span class="v">0</span><span class="l">false alarms in 250 trials</span></div><div><span class="v">75–1,083 ms</span><span class="l">latency, SF7 to SF12</span></div></div>
+<div class="figs n6"><figure class="fig photo"><button class="zoom" type="button" data-src="img/tx_s.jpg" data-cap="Transmitter node. ESP32/SX1276 with MQ-4 gas, DPS310 pressure/temperature and piezo vibration sensors." aria-label="Enlarge: Transmitter node"><img src="img/tx_s.jpg" alt="Transmitter node: ESP32/SX1276 with MQ-4 gas, DPS310 pressure/temperature and piezo vibration sensors." loading="lazy"></button><figcaption><b>Transmitter node.</b> ESP32/SX1276 with MQ-4 gas, DPS310 pressure/temperature and piezo vibration sensors.</figcaption></figure><figure class="fig photo"><button class="zoom" type="button" data-src="img/rx_s.jpg" data-cap="Receiver node. Live readings on the OLED, with LED and buzzer alarm." aria-label="Enlarge: Receiver node"><img src="img/rx_s.jpg" alt="Receiver node: Live readings on the OLED, with LED and buzzer alarm." loading="lazy"></button><figcaption><b>Receiver node.</b> Live readings on the OLED, with LED and buzzer alarm.</figcaption></figure><figure class="fig diagram"><button class="zoom" type="button" data-src="img/block.png" data-cap="System architecture. Three sensors feed the transmitter; the receiver drives buzzer, LED and display." aria-label="Enlarge: System architecture"><img src="img/block.png" alt="System architecture: Three sensors feed the transmitter; the receiver drives buzzer, LED and display." loading="lazy"></button><figcaption><b>System architecture.</b> Three sensors feed the transmitter; the receiver drives buzzer, LED and display.</figcaption></figure><figure class="fig chart"><button class="zoom" type="button" data-src="img/c_link.png" data-cap="Link quality vs distance. At SF7, RSSI fell from −91 to −120 dBm and SNR from +9.8 to −6.5 dB; SF12 still decoded at −8.25 dB SNR." aria-label="Enlarge: Link quality vs distance"><img src="img/c_link.png" alt="Link quality vs distance: At SF7, RSSI fell from −91 to −120 dBm and SNR from +9.8 to −6.5 dB; SF12 still decoded at −8.25 dB SNR." loading="lazy"></button><figcaption><b>Link quality vs distance.</b> At SF7, RSSI fell from −91 to −120 dBm and SNR from +9.8 to −6.5 dB; SF12 still decoded at −8.25 dB SNR.</figcaption></figure><figure class="fig chart"><button class="zoom" type="button" data-src="img/c_lat.png" data-cap="Spreading-factor trade-off. Latency rose from 75 ms at SF7 to 1,083 ms at SF12, matching LoRa time-on-air theory." aria-label="Enlarge: Spreading-factor trade-off"><img src="img/c_lat.png" alt="Spreading-factor trade-off: Latency rose from 75 ms at SF7 to 1,083 ms at SF12, matching LoRa time-on-air theory." loading="lazy"></button><figcaption><b>Spreading-factor trade-off.</b> Latency rose from 75 ms at SF7 to 1,083 ms at SF12, matching LoRa time-on-air theory.</figcaption></figure><figure class="fig chart"><button class="zoom" type="button" data-src="img/c_det.png" data-cap="Detection reliability. 50 trials per distance (30 leak, 20 no-leak). Perfect to 300 m; no false alarms at any range." aria-label="Enlarge: Detection reliability"><img src="img/c_det.png" alt="Detection reliability: 50 trials per distance (30 leak, 20 no-leak). Perfect to 300 m; no false alarms at any range." loading="lazy"></button><figcaption><b>Detection reliability.</b> 50 trials per distance (30 leak, 20 no-leak). Perfect to 300 m; no false alarms at any range.</figcaption></figure></div>
+<div class="cols"><div><h4>What I did</h4><ul class="did"><li>Selected components and drew the transmitter and receiver schematics (GPIO, ADC and I²C interfacing).</li><li>Wrote the C++ firmware: sampling, averaging, payload encoding, LoRa TX/RX and threshold alerts.</li><li>Planned and ran a three-phase field test: a distance sweep, an SF7–SF12 sweep and a 250-trial confusion-matrix evaluation.</li><li>Computed accuracy, precision, recall and specificity, and analysed the results against LoRa link-budget theory.</li></ul></div></div>
+</section><section class="proj" id="robot" aria-labelledby="h-robot">
+<header class="ph"><span class="pc">PRJ-02</span><h2 id="h-robot">IoT Service Module: Autonomous Shape-Guided Robot</h2><p class="meta">Capstone (Integrated System Design Project) · 2025 · Team of 3 · My subsystems: vision and navigation</p><ul class="tags"><li>Raspberry Pi 5</li><li>YOLO</li><li>Python</li><li>Viam cloud</li><li>Ultrasonic</li><li>L298N / PWM</li></ul></header>
+<p class="sum">A Raspberry Pi 5 robot that travels to a remote plant whose temperature sensor has failed, finding its way by recognising triangle, circle and square markers, then takes over the plant&#x27;s cooling-fan control from a base-station laptop. I owned two of the four subsystems: the vision pipeline that detects and streams, and the navigation logic that turns detections into motor commands.</p>
+<div class="specs"><div><span class="v">2 of 4</span><span class="l">subsystems owned</span></div><div><span class="v">3 shapes</span><span class="l">custom YOLO classes</span></div><div><span class="v">120°</span><span class="l">camera field of view</span></div><div><span class="v">Live</span><span class="l">video to base station via Viam</span></div></div>
+<div class="figs n8"><figure class="fig diagram"><button class="zoom" type="button" data-src="img/cap_itp.jpg" data-cap="Vision pipeline. Camera to Raspberry Pi 5 (YOLO inference) to base-station laptop." aria-label="Enlarge: Vision pipeline"><img src="img/cap_itp.jpg" alt="Vision pipeline: Camera to Raspberry Pi 5 (YOLO inference) to base-station laptop." loading="lazy"></button><figcaption><b>Vision pipeline.</b> Camera to Raspberry Pi 5 (YOLO inference) to base-station laptop.</figcaption></figure><figure class="fig diagram"><button class="zoom" type="button" data-src="img/cap_an.jpg" data-cap="Navigation architecture. Camera and ultrasonic inputs feed the navigation algorithm, which drives the motors." aria-label="Enlarge: Navigation architecture"><img src="img/cap_an.jpg" alt="Navigation architecture: Camera and ultrasonic inputs feed the navigation algorithm, which drives the motors." loading="lazy"></button><figcaption><b>Navigation architecture.</b> Camera and ultrasonic inputs feed the navigation algorithm, which drives the motors.</figcaption></figure><figure class="fig photo"><button class="zoom" type="button" data-src="img/cap_yolo.jpg" data-cap="On-device detection. YOLO labelling objects with confidence scores (faces blurred)." aria-label="Enlarge: On-device detection"><img src="img/cap_yolo.jpg" alt="On-device detection: YOLO labelling objects with confidence scores (faces blurred)." loading="lazy"></button><figcaption><b>On-device detection.</b> YOLO labelling objects with confidence scores (faces blurred).</figcaption></figure><figure class="fig photo"><button class="zoom" type="button" data-src="img/cap_circle.jpg" data-cap="Shape target. Circle marker detected and centred for approach." aria-label="Enlarge: Shape target"><img src="img/cap_circle.jpg" alt="Shape target: Circle marker detected and centred for approach." loading="lazy"></button><figcaption><b>Shape target.</b> Circle marker detected and centred for approach.</figcaption></figure><figure class="fig diagram"><button class="zoom" type="button" data-src="img/cap_us.jpg" data-cap="Ultrasonic wiring. Sensor to Raspberry Pi 5 GPIO for obstacle ranging." aria-label="Enlarge: Ultrasonic wiring"><img src="img/cap_us.jpg" alt="Ultrasonic wiring: Sensor to Raspberry Pi 5 GPIO for obstacle ranging." loading="lazy"></button><figcaption><b>Ultrasonic wiring.</b> Sensor to Raspberry Pi 5 GPIO for obstacle ranging.</figcaption></figure><figure class="fig diagram"><button class="zoom" type="button" data-src="img/cap_motor.jpg" data-cap="Drive wiring. L298N H-bridge driving two TT gear motors with PWM from the Pi." aria-label="Enlarge: Drive wiring"><img src="img/cap_motor.jpg" alt="Drive wiring: L298N H-bridge driving two TT gear motors with PWM from the Pi." loading="lazy"></button><figcaption><b>Drive wiring.</b> L298N H-bridge driving two TT gear motors with PWM from the Pi.</figcaption></figure><figure class="fig photo"><button class="zoom" type="button" data-src="img/cap_build.jpg" data-cap="Chassis build. Motor driver and wiring on the robot chassis." aria-label="Enlarge: Chassis build"><img src="img/cap_build.jpg" alt="Chassis build: Motor driver and wiring on the robot chassis." loading="lazy"></button><figcaption><b>Chassis build.</b> Motor driver and wiring on the robot chassis.</figcaption></figure><figure class="fig chart"><button class="zoom" type="button" data-src="img/c_us.png" data-cap="Ultrasonic readings. Live readings logged during testing, 3.2 to 31.4 cm; unreliable below 10 cm." aria-label="Enlarge: Ultrasonic readings"><img src="img/c_us.png" alt="Ultrasonic readings: Live readings logged during testing, 3.2 to 31.4 cm; unreliable below 10 cm." loading="lazy"></button><figcaption><b>Ultrasonic readings.</b> Live readings logged during testing, 3.2 to 31.4 cm; unreliable below 10 cm.</figcaption></figure></div>
+<div class="cols"><div><h4>What I did</h4><ul class="did"><li>Trained a custom YOLO model on triangle, circle and square markers and ran inference on the Pi.</li><li>Chose YOLO over OpenCV contour detection, and Viam over Blynk and Arduino Cloud, after comparing accuracy, video support and cost.</li><li>Wrote Python navigation logic fusing YOLO detections with ultrasonic ranging to centre on targets and stop, pivot or slow near obstacles.</li><li>Documented limits from testing (poor light, the sensor&#x27;s 10 cm dead zone, reflective surfaces) and proposed fixes.</li></ul></div></div>
+</section><section class="proj" id="dac" aria-labelledby="h-dac">
+<header class="ph"><span class="pc">PRJ-03</span><h2 id="h-dac">Direct Air Capture Prototype: CO₂ Monitoring Electronics</h2><p class="meta">Engineering Team Project · September 2023 · Team of 7 · Assistant Project Director, sole electrical engineer</p><ul class="tags"><li>Arduino Nano</li><li>C++</li><li>MQ135</li><li>OLED + LCD</li><li>BJT switching</li><li>Instrumentation</li></ul></header>
+<p class="sum">A tabletop chamber that pulls ambient air across a 5% potassium hydroxide solution to absorb CO₂. I designed and programmed the electronics: an Arduino Nano reads an MQ135 gas sensor, averages 10 samples, converts the result to ppm and shows it live on an OLED bar graph and a 16×2 LCD. Three LED levels and a 3 kHz buzzer warn at rising CO₂, and a transistor switch runs the fan and pump from a 7.4 V battery.</p>
+<div class="specs"><div><span class="v">45%</span><span class="l">CO₂ reduction, closed test (840 → 462 ppm)</span></div><div><span class="v">35%</span><span class="l">reduction, open air (611 → 396 ppm)</span></div><div><span class="v">3 levels</span><span class="l">alarm at 1,000 and 2,000 ppm</span></div><div><span class="v">RM269</span><span class="l">total build cost</span></div></div>
+<div class="figs n6"><figure class="fig photo"><button class="zoom" type="button" data-src="img/d_green.jpg" data-cap="476 ppm: green. Safe level; the LCD and OLED show the live reading." aria-label="Enlarge: 476 ppm: green"><img src="img/d_green.jpg" alt="476 ppm: green: Safe level; the LCD and OLED show the live reading." loading="lazy"></button><figcaption><b>476 ppm: green.</b> Safe level; the LCD and OLED show the live reading.</figcaption></figure><figure class="fig photo"><button class="zoom" type="button" data-src="img/d_orange.jpg" data-cap="1,753 ppm: orange. Elevated-level warning." aria-label="Enlarge: 1,753 ppm: orange"><img src="img/d_orange.jpg" alt="1,753 ppm: orange: Elevated-level warning." loading="lazy"></button><figcaption><b>1,753 ppm: orange.</b> Elevated-level warning.</figcaption></figure><figure class="fig photo"><button class="zoom" type="button" data-src="img/d_red.jpg" data-cap="2,342 ppm: red + buzzer. Dangerous level; red LED bank and 3 kHz tone." aria-label="Enlarge: 2,342 ppm: red + buzzer"><img src="img/d_red.jpg" alt="2,342 ppm: red + buzzer: Dangerous level; red LED bank and 3 kHz tone." loading="lazy"></button><figcaption><b>2,342 ppm: red + buzzer.</b> Dangerous level; red LED bank and 3 kHz tone.</figcaption></figure><figure class="fig diagram"><button class="zoom" type="button" data-src="img/d_sch.jpg" data-cap="Full circuit schematic. Nano, MQ135, OLED (I²C), LCD, LED bank, buzzer and fan/pump driver." aria-label="Enlarge: Full circuit schematic"><img src="img/d_sch.jpg" alt="Full circuit schematic: Nano, MQ135, OLED (I²C), LCD, LED bank, buzzer and fan/pump driver." loading="lazy"></button><figcaption><b>Full circuit schematic.</b> Nano, MQ135, OLED (I²C), LCD, LED bank, buzzer and fan/pump driver.</figcaption></figure><figure class="fig diagram"><button class="zoom" type="button" data-src="img/d_bjt.jpg" data-cap="Fan and pump driver. Sized from a 600 mA pump + 340 mA fan load, with 8.6 mA base current to respect the Nano&#x27;s pin limit." aria-label="Enlarge: Fan and pump driver"><img src="img/d_bjt.jpg" alt="Fan and pump driver: Sized from a 600 mA pump + 340 mA fan load, with 8.6 mA base current to respect the Nano&#x27;s pin limit." loading="lazy"></button><figcaption><b>Fan and pump driver.</b> Sized from a 600 mA pump + 340 mA fan load, with 8.6 mA base current to respect the Nano&#x27;s pin limit.</figcaption></figure><figure class="fig chart"><button class="zoom" type="button" data-src="img/c_dac.png" data-cap="Measured results. CO₂ before and after running the prototype, read by the monitoring circuit." aria-label="Enlarge: Measured results"><img src="img/c_dac.png" alt="Measured results: CO₂ before and after running the prototype, read by the monitoring circuit." loading="lazy"></button><figcaption><b>Measured results.</b> CO₂ before and after running the prototype, read by the monitoring circuit.</figcaption></figure></div>
+<div class="cols"><div><h4>What I did</h4><ul class="did"><li>Drew the circuit and driver schematics and wrote the C++ firmware: sampling, averaging, ppm mapping, alarms and dual display.</li><li>Compared the MQ135, MG811 and MH-Z19B sensors and chose the MQ135 for cost (RM7.50) and a 20 s warm-up.</li><li>Calculated the fan and pump load, base current and forced beta for the switching stage.</li><li>As assistant project director, set weekly agendas, assigned tasks and tracked progress across four disciplines.</li></ul></div><div class="extra"><h4>Sensor selection</h4><div class="tw"><table><thead><tr><th></th><th>MQ135</th><th>MG811</th><th>MH-Z19B</th></tr></thead><tbody>
+<tr><td>Price</td><td class="pick">RM7.50</td><td>RM123.87</td><td>RM42.93</td></tr>
+<tr><td>Warm-up</td><td class="pick">20 s</td><td>3 min</td><td>3 min</td></tr>
+<tr><td>Range</td><td>100–1,000 ppm</td><td>350–10,000 ppm</td><td>0–10,000 ppm</td></tr>
+<tr><td>Gases</td><td>CO₂ + others</td><td>CO₂</td><td>CO₂</td></tr></tbody></table></div>
+<p class="note">The MQ135 responds to several gases, so a dedicated NDIR sensor such as the MH-Z19B is the upgrade path for absolute CO₂ accuracy.</p></div></div>
+</section><section class="proj" id="psu" aria-labelledby="h-psu">
+<header class="ph"><span class="pc">PRJ-04</span><h2 id="h-psu">12 V Linear DC Bench Power Supply</h2><p class="meta">Electrical Circuit Analysis · March 2023 · Team of 4</p><ul class="tags"><li>Full-wave rectifier</li><li>L7812 / LM317T</li><li>Eagle PCB</li><li>Soldering</li><li>Oscilloscope</li><li>Power</li></ul></header>
+<p class="sum">A bench supply that steps 240 V mains down through a centre-tapped transformer, rectifies it with a full-wave rectifier, smooths it with a capacitor filter and regulates it into a fixed 12 V rail (L7812) and an adjustable rail (LM317T) that drives a cooling fan. Designed on paper, proved on a breadboard, laid out in Eagle, then soldered into a ventilated acrylic enclosure with panel meters.</p>
+<div class="specs"><div><span class="v">12.68 V</span><span class="l">fixed output measured (+5.7%)</span></div><div><span class="v">1.25–13.75 V</span><span class="l">adjustable range (design)</span></div><div><span class="v">14–30 V RMS</span><span class="l">safe input window</span></div><div><span class="v">240 V AC</span><span class="l">mains input</span></div></div>
+<div class="figs n6"><figure class="fig diagram"><button class="zoom" type="button" data-src="img/dc_block.jpg" data-cap="Signal chain. Mains, transformer, rectifier, filter, regulator, regulated DC output." aria-label="Enlarge: Signal chain"><img src="img/dc_block.jpg" alt="Signal chain: Mains, transformer, rectifier, filter, regulator, regulated DC output." loading="lazy"></button><figcaption><b>Signal chain.</b> Mains, transformer, rectifier, filter, regulator, regulated DC output.</figcaption></figure><figure class="fig diagram"><button class="zoom" type="button" data-src="img/dc_layout.jpg" data-cap="PCB layout in Eagle. L7812ABV and LM317T regulators, rectifier diodes, filter capacitors and LED indicator." aria-label="Enlarge: PCB layout in Eagle"><img src="img/dc_layout.jpg" alt="PCB layout in Eagle: L7812ABV and LM317T regulators, rectifier diodes, filter capacitors and LED indicator." loading="lazy"></button><figcaption><b>PCB layout in Eagle.</b> L7812ABV and LM317T regulators, rectifier diodes, filter capacitors and LED indicator.</figcaption></figure><figure class="fig photo"><button class="zoom" type="button" data-src="img/dc_pcb.jpg" data-cap="Fabricated PCB. Matching the submitted Eagle design." aria-label="Enlarge: Fabricated PCB"><img src="img/dc_pcb.jpg" alt="Fabricated PCB: Matching the submitted Eagle design." loading="lazy"></button><figcaption><b>Fabricated PCB.</b> Matching the submitted Eagle design.</figcaption></figure><figure class="fig photo"><button class="zoom" type="button" data-src="img/dc_bread.jpg" data-cap="Breadboard prototype. Driving the 12 V fan, with a panel meter reading voltage and current." aria-label="Enlarge: Breadboard prototype"><img src="img/dc_bread.jpg" alt="Breadboard prototype: Driving the 12 V fan, with a panel meter reading voltage and current." loading="lazy"></button><figcaption><b>Breadboard prototype.</b> Driving the 12 V fan, with a panel meter reading voltage and current.</figcaption></figure><figure class="fig photo"><button class="zoom" type="button" data-src="img/dc_box.jpg" data-cap="Finished unit. Labelled fixed and variable outputs with panel meters." aria-label="Enlarge: Finished unit"><img src="img/dc_box.jpg" alt="Finished unit: Labelled fixed and variable outputs with panel meters." loading="lazy"></button><figcaption><b>Finished unit.</b> Labelled fixed and variable outputs with panel meters.</figcaption></figure><figure class="fig photo"><button class="zoom" type="button" data-src="img/dc_meter.jpg" data-cap="Verification. Multimeter reading 12.69 V on the fixed output." aria-label="Enlarge: Verification"><img src="img/dc_meter.jpg" alt="Verification: Multimeter reading 12.69 V on the fixed output." loading="lazy"></button><figcaption><b>Verification.</b> Multimeter reading 12.69 V on the fixed output.</figcaption></figure></div>
+<div class="cols"><div><h4>What I did</h4><ul class="did"><li>Sized the LM317 resistors from the datasheet equation (R1 = 200 Ω, R2 = 2 kΩ for 13.75 V maximum).</li><li>Set the input window so the rectified peak (19.8–42.4 V) clears regulator dropout and stays below the 50 V capacitor rating.</li><li>Traced a no-output fault to swapped regulators and repaired lifted copper traces.</li><li>Rebuilt the enclosure around measured component dimensions after the first case failed to fit.</li></ul></div><div class="extra"><h4>Design calculations</h4><dl class="calc">
+<div><dt>LM317 output</dt><dd><code>V<sub>O</sub> = 1.25 (1 + R2/R1)</code> with R2 = 2 kΩ, R1 = 200 Ω gives 13.75 V maximum</dd></div>
+<div><dt>Minimum input</dt><dd><code>14 V × 1.414 = 19.8 V</code> peak, enough headroom above regulator dropout</dd></div>
+<div><dt>Maximum input</dt><dd><code>30 V × 1.414 = 42.4 V</code> peak, below the 50 V filter-capacitor rating</dd></div></dl></div></div>
+</section><section class="proj" id="wordle" aria-labelledby="h-wordle">
+<header class="ph"><span class="pc">PRJ-05</span><h2 id="h-wordle">Wordle Game in C with an X11 Interface</h2><p class="meta">Structured Programming · September–December 2022 · Team of 2</p><ul class="tags"><li>C</li><li>X11 graphics</li><li>File I/O</li><li>Event loop</li><li>Linux</li></ul></header>
+<p class="sum">A complete Wordle clone written in C on Linux. The player gets six tries to guess a hidden five-letter word using an on-screen keyboard; each guess is validated against a 200-word list and coloured tile by tile. Everything on screen is drawn with a small X11 graphics library, and all input comes from mouse clicks mapped to on-screen coordinates. Screenshots below are from a fresh build of the original code.</p>
+<div class="specs"><div><span class="v">~680</span><span class="l">lines of C</span></div><div><span class="v">200</span><span class="l">words loaded from file</span></div><div><span class="v">4</span><span class="l">validation checks per guess</span></div><div><span class="v">0</span><span class="l">repeated target words</span></div></div>
+<div class="figs n4"><figure class="fig screen"><button class="zoom" type="button" data-src="img/w_g2.png" data-cap="Colour feedback. Green: right letter, right place. Yellow: in the word, wrong place. Grey: not in the word." aria-label="Enlarge: Colour feedback"><img src="img/w_g2.png" alt="Colour feedback: Green: right letter, right place. Yellow: in the word, wrong place. Grey: not in the word." loading="lazy"></button><figcaption><b>Colour feedback.</b> Green: right letter, right place. Yellow: in the word, wrong place. Grey: not in the word.</figcaption></figure><figure class="fig screen"><button class="zoom" type="button" data-src="img/w_inv.png" data-cap="Input validation. TRAIN is not in the word list, so it is rejected and no guess is used up." aria-label="Enlarge: Input validation"><img src="img/w_inv.png" alt="Input validation: TRAIN is not in the word list, so it is rejected and no guess is used up." loading="lazy"></button><figcaption><b>Input validation.</b> TRAIN is not in the word list, so it is rejected and no guess is used up.</figcaption></figure><figure class="fig screen"><button class="zoom" type="button" data-src="img/w_win.png" data-cap="Win. Solved on the third guess; the answer is revealed below the board." aria-label="Enlarge: Win"><img src="img/w_win.png" alt="Win: Solved on the third guess; the answer is revealed below the board." loading="lazy"></button><figcaption><b>Win.</b> Solved on the third guess; the answer is revealed below the board.</figcaption></figure><figure class="fig screen"><button class="zoom" type="button" data-src="img/w_menu.png" data-cap="Main menu. New Game, Help and Exit buttons with click hit-testing." aria-label="Enlarge: Main menu"><img src="img/w_menu.png" alt="Main menu: New Game, Help and Exit buttons with click hit-testing." loading="lazy"></button><figcaption><b>Main menu.</b> New Game, Help and Exit buttons with click hit-testing.</figcaption></figure></div>
+<div class="cols"><div><h4>What I did</h4><ul class="did"><li>Event loop that turns mouse clicks into actions by hit-testing button and key coordinates.</li><li>On-screen QWERTY keyboard with Enter and delete keys, writing letters into the tile grid as they are typed.</li><li>Random word selection from the file, tracking used words so none repeats until all 200 are played.</li><li>Letter-by-letter comparison producing green, yellow and grey feedback for each tile.</li></ul></div><div class="extra"><h4>Excerpt: guess validation</h4><pre><code><span class="c">// valid only if in the word list, letters only, 5 long, no repeats</span>
+int validity(char* guess){
+  ...
+  while(in &lt;= 200){                          <span class="c">// dictionary lookup</span>
+    fgets(tempo, WORD_SIZE, fp);
+    if (strncmp(guess, tempo, NUM_OF_CHARS)==0){ invalid=0; break; }
+    else invalid=1;  in++;
+  }
+  for(i=0;i&lt;strlen(guess);i++)               <span class="c">// letters only</span>
+    if (isalpha(guess[i])==0) invalid=1;
+  if (strlen(guess)!=NUM_OF_CHARS) invalid=1; <span class="c">// length</span>
+  for(x=0;x&lt;NUM_OF_CHARS;x++)                 <span class="c">// no repeats</span>
+    for(y=x+1;y&lt;NUM_OF_CHARS;y++)
+      if(guess[x]==guess[y]) invalid=1;
+  return invalid;
+}</code></pre></div></div>
+</section>
+<footer class="site">
+  <p>Figures and measurements come from my project reports at Universiti Teknologi PETRONAS. Charts are redrawn from the reports' result tables; Wordle screenshots are from a fresh build of the original code. Faces of team members are blurred.</p>
+  <p>Open to graduate engineering roles in Malaysia and abroad.</p>
+</footer>
+</div>
+<dialog id="lb" aria-label="Enlarged figure">
+  <button type="button" id="lbx">Close</button>
+  <figure><img id="lbi" alt=""><figcaption id="lbc"></figcaption></figure>
+</dialog>
+<script>
+(function(){
+  var d=document.getElementById('lb'),i=document.getElementById('lbi'),c=document.getElementById('lbc');
+  if(!d||typeof d.showModal!=='function')return;
+  document.querySelectorAll('.zoom').forEach(function(b){
+    b.addEventListener('click',function(){i.src=b.dataset.src;i.alt=b.dataset.cap;c.textContent=b.dataset.cap;d.showModal();});
+  });
+  document.getElementById('lbx').addEventListener('click',function(){d.close();});
+  d.addEventListener('click',function(e){if(e.target===d)d.close();});
+})();
+</script>
+</body>
+</html>
